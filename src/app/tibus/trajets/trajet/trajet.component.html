@@ -1,1 +1,77 @@
-<p>trajet works!</p>
+<mat-toolbar>
+    <span>
+        {{service.form.controls['$key'].value?"Modifier trajet":"Nouveau trajet" }}
+    </span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabindex="-1"><mat-icon>clear</mat-icon></button>
+</mat-toolbar>
+
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                
+                <input type="hidden" formControlName="$key">
+                <mat-form-field appearance="legacy">
+                    <input type="text" matInput formControlName="nom" placeholder="Identifiant du trajet*">
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                    <mat-select formControlName="stationsD" placeholder="Station de départ*">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let station of stationService.array">
+                            <mat-option value="{{station.$key}}">{{station.nom}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                    <input type="text" matInput formControlName="coutTrajet" placeholder="Coût du trajet*">
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                    <input type="text" matInput formControlName="distance" placeholder="Distance du trajet*">
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+                
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                
+                <mat-form-field appearance="legacy">
+                    <mat-select formControlName="compagnies" placeholder="Compagnie">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let compagnie of compagnieService.array">
+                            <mat-option value="{{compagnie.$key}}">{{compagnie.nom}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field appearance="legacy">
+                    <mat-select formControlName="stationsA" placeholder="Station d'arrivée*">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let station of stationService.array">
+                            <mat-option value="{{station.$key}}">{{station.nom}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                    <mat-error>Ce champ est obligatoire</mat-error>
+                </mat-form-field>
+
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="isActivate"> Activée</mat-checkbox>
+                </div>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="service.form.invalid">Enregistrer</button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Annuler</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</form>

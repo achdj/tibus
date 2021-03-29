@@ -1,0 +1,5 @@
+{
+    "paygateURL": "https://paygateglobal.com/api/v1/pay",
+    "textfile": "assets/textfile.txt"
+         	
+}

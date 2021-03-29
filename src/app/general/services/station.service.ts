@@ -52,6 +52,11 @@ export class StationService {
     return this.stationList.snapshotChanges();
   }
 
+  getStations2() {
+    this.stationList = this.firebase.list("stations");
+    return this.stationList.snapshotChanges();
+  }
+
   
   insertStation(station) {
     this.stationList.push({
